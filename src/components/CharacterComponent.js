@@ -1,5 +1,5 @@
 import React from 'react';
-import { Heading } from "evergreen-ui";
+import { Heading, Spinner } from "evergreen-ui";
 
 export default class CapitalComponent extends React.Component {
 
@@ -13,17 +13,21 @@ export default class CapitalComponent extends React.Component {
   } 
 
   async componentDidMount() {
-       const url = "http://localhost:8080/character/prosopa";
+       const url = "https://test-pathfinder-sheet.herokuapp.com/character/prosopa";
        const response = await fetch(url);
        const data = await response.json();
        this.setState({name: data.name, imageUrl: data.imageUrl, loading: false})
   }
 
   render() {
-    return <div>
-      <Heading size={900}>{this.state.name}</Heading>
-      <br />
-      <img src={this.state.imageUrl} className="Character-photo"/>
-    </div>
+    if (this.state.loading) {
+      return <div><Spinner /></div>
+    } else {
+      return <div>
+        <Heading size={800}>{this.state.name}</Heading>
+        <br />
+        <img src={this.state.imageUrl} className="Character-photo"/>
+      </div>
+    }
   };
 }

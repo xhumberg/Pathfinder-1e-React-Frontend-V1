@@ -20,7 +20,7 @@ export default class CapitalComponent extends React.Component {
           <Pane
             width={320}
             height={320}
-            paddingX={40}
+            paddingX={20}
             display="flex"
             alignItems="center"
             justifyContent="center"
