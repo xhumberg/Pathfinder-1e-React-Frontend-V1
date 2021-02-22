@@ -1,6 +1,7 @@
 import CharacterComponent from "./components/CharacterComponent";
 import EffectsPopoverComponent from "./components/EffectsPopoverComponent";
 import AbilitiesComponent from "./components/AbilitiesComponent";
+import BodyComponent from "./components/BodyComponent";
 import './App.css';
 import {LogInIcon, Pane} from "evergreen-ui";
 import React from 'react';
@@ -36,7 +37,6 @@ class App extends React.Component {
 
   render = () => {
       return <div className="App">
-        <Pane display="flex" justifyContent="space-between">
           <Pane display="flex" width="80%" background="tint2" borderRadius={3} margin="auto" alignItems="flex-end">
             <Pane flex={1} alignItems="center" display="flex" padding={10}>
               <CharacterComponent/>
@@ -46,7 +46,7 @@ class App extends React.Component {
               <EffectsPopoverComponent parentCallback={this.handleCallback}/>
             </Pane>
           </Pane>
-       </Pane>
+          <BodyComponent />
       </div>
   }
 }
