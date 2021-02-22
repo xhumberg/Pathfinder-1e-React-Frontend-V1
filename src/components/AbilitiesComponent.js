@@ -1,30 +1,20 @@
 import React from 'react';
 import { Heading, Spinner, Table, Strong } from "evergreen-ui";
 
-export default class CapitalComponent extends React.Component {
+export default class AbilitiesComponent extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      abilities: ["loading..."],
-      loading: true
+      data: this.props.data
     }
-  } 
-
-  async componentDidMount() {
-       const url = "https://test-pathfinder-sheet.herokuapp.com/character/prosopa";
-       const response = await fetch(url);
-       const data = await response.json();
-       this.setState({abilities: data.ability, loading: false})
   }
 
   render() {
-
-    if (this.state.loading) {
-      return <div><Spinner /></div>
-    } else {
-        const abilityList = this.state.abilities;
-        const abilityJson = abilityList.map((ability) => <li>{JSON.parse(ability).name}</li>);
+      const abilityList = this.props.data;
+      if (!abilityList) {
+        return <div>Loading</div>
+      }
       return <div>
         <Heading size={100}>Abilities</Heading>
         <Table width="100%">
@@ -36,14 +26,18 @@ export default class CapitalComponent extends React.Component {
             <Table.Body>
                 {abilityList.map((ability) =>
                     <Table.Row>
-                        <Table.TextCell><Strong>{JSON.parse(ability).name}</Strong></Table.TextCell>
-                        <Table.TextCell>{JSON.parse(ability).value}</Table.TextCell>
-                        <Table.TextCell>{JSON.parse(ability).mod}</Table.TextCell>
+                        <Table.TextCell><Strong>{ability.name}</Strong></Table.TextCell>
+                        <Table.TextCell>{ability.value}</Table.TextCell>
+                        <Table.TextCell>{ability.mod}</Table.TextCell>
                     </Table.Row>
                 )}
             </Table.Body>
         </Table>
       </div>
-    }
+    return <div>
+        {this.state.data.map((ability) =>
+          <li>{ability.name}</li>
+        )}
+      </div>
   };
 }

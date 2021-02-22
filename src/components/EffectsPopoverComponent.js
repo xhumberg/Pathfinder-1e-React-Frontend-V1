@@ -12,6 +12,13 @@ export default class CapitalComponent extends React.Component {
     }
   } 
 
+  async updateSheet(effectToToggle) {
+    console.log("Toggled " + effectToToggle);
+    const url = "https://test-pathfinder-sheet.herokuapp.com/character/prosopa/toggle/" + effectToToggle;
+    const response = await fetch(url, {method: 'PUT'});
+    this.props.parentCallback("Reload");
+  }
+
   render() {
     return <div>
       <Popover
@@ -26,9 +33,7 @@ export default class CapitalComponent extends React.Component {
             justifyContent="center"
             flexDirection="column"
           >
-            <Checkbox label="Haste" />
-            <Checkbox label="Mage Armor" />
-            <Checkbox label="Heroism" />
+            <Checkbox label="Bull's Strength" onChange={() => {this.updateSheet("Bull's Strength")}}/>
           </Pane>
         }
       >
