@@ -9,8 +9,8 @@ import Login from "./components/CustomGoogleLogin";
 import Logout from "./components/CustomGoogleLogout"
 import React from 'react';
 
-// const CHARACTER_SERVICE_URL = "https://test-pathfinder-sheet.herokuapp.com";
-const CHARACTER_SERVICE_URL = "http://localhost:8080";
+const CHARACTER_SERVICE_URL = "https://test-pathfinder-sheet.herokuapp.com";
+// const CHARACTER_SERVICE_URL = "http://localhost:8080";
 
 class App extends React.Component {
 
