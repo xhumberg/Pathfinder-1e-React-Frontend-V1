@@ -1,5 +1,6 @@
 import React from 'react';
 import { Pane, Heading, Text } from "evergreen-ui";
+import WeaponComponent from "./WeaponComponent"
 
 export default class OffenceComponent extends React.Component {
 
@@ -9,16 +10,10 @@ export default class OffenceComponent extends React.Component {
 
   render() {
     return <div>
-        <Pane display="flex" width="90%" background="redTint" borderRadius={3} margin="auto" alignItems="flex-end" alignItems="center" padding={10} justifyContent="center">
-            <Text>The following is sample text:</Text>
-        </Pane>
-        <Pane display="flex" width="90%" background="redTint" borderRadius={3} margin="auto" alignItems="flex-end" alignItems="center" padding={10} justifyContent="left">
-            <Heading>Heavy Crossbow</Heading>
-            <Text padding={10}>+5 (1d10 | 19-20x2)</Text>
-        </Pane>
-        <Pane display="flex" width="90%" background="redTint" borderRadius={3} margin="auto" alignItems="flex-end" alignItems="center" padding={10} justifyContent="left">
-            <Heading>BAB: +2; CMB +0</Heading>
-        </Pane>
+      <Pane width="950px" background="redTint" borderRadius={3} margin="auto" alignItems="center" alignItems="center" padding={10} justifyContent="left">
+        <Heading>BAB: +2; CMB +0</Heading>
+      </Pane>
+      <WeaponComponent/>
     </div>
   };
 }

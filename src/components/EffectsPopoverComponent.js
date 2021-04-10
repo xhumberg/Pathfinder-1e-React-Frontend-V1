@@ -14,9 +14,7 @@ export default class EffectsPopoverComponent extends React.Component {
 
   async updateSheet(effectToToggle) {
     console.log("Toggled " + effectToToggle);
-    const url = "https://test-pathfinder-sheet.herokuapp.com/character/prosopa/toggle/" + effectToToggle;
-    const response = await fetch(url, {method: 'PUT'});
-    this.props.parentCallback("Reload");
+    this.props.parentCallback(effectToToggle);
   }
 
   render() {

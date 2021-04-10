@@ -34,11 +34,11 @@ export default class BodyComponent extends React.Component {
       displayPane = <SpellsComponent/>
     } else {
       bgColor="blueTint"
-      displayPane = <Pane display="flex" width="90%" background={bgColor} borderRadius={3} margin="auto" alignItems="flex-end" alignItems="center" padding={10} justifyContent="center"><p>Skills and Background</p></Pane>
+      displayPane = <Pane display="flex" width="950px" background={bgColor} borderRadius={3} margin="auto" alignItems="flex-end" alignItems="center" padding={10} justifyContent="center"><p>Skills and Background</p></Pane>
     }
 
     return <div>
-      <Pane display="flex" width="90%" background={bgColor} borderRadius={3} margin="auto" alignItems="flex-end" alignItems="center" padding={10} justifyContent="center">
+      <Pane display="flex" width="950px" background={bgColor} borderRadius={3} margin="auto" alignItems="flex-end" alignItems="center" padding={10} justifyContent="center">
         <Button height="40" iconAfter={TakeActionIcon} appearance="primary" intent="danger" padding={20} width="25%" justifyContent="center" onClick={() => this.setState({selectedIndex: 0})}>Offence</Button>
         <Button height="40" iconAfter={BadgeIcon} appearance="primary" intent="success" padding={20} width="25%" justifyContent="center" onClick={() => this.setState({selectedIndex: 1})}>Defense</Button>
         <Button height="40" iconAfter={FlashIcon} appearance="primary" intent="warning" padding={20} width="25%" justifyContent="center" onClick={() => this.setState({selectedIndex: 2})}>Spells</Button>

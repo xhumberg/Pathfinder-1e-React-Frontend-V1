@@ -9,13 +9,13 @@ export default class SpellsComponent extends React.Component {
 
   render() {
     return <div>
-        <Pane display="flex" width="90%" background="yellowTint" borderRadius={3} margin="auto" alignItems="flex-end" alignItems="center" padding={10} justifyContent="center">
+        <Pane display="flex" width="950px" background="yellowTint" borderRadius={3} margin="auto" alignItems="flex-end" alignItems="center" padding={10} justifyContent="center">
             <Text>The following is sample text:</Text>
         </Pane>
-        <Pane display="flex" width="90%" background="yellowTint" borderRadius={3} margin="auto" alignItems="flex-end" alignItems="center" padding={10} justifyContent="center">
+        <Pane display="flex" width="950px" background="yellowTint" borderRadius={3} margin="auto" alignItems="flex-end" alignItems="center" padding={10} justifyContent="center">
           <Heading>3rd Level Spells (3/day)</Heading>
         </Pane>
-        <Pane display="flex" width="90%" background="yellowTint" borderRadius={3} margin="auto" alignItems="flex-end" alignItems="center" padding={10} justifyContent="center">
+        <Pane display="flex" width="950px" background="yellowTint" borderRadius={3} margin="auto" alignItems="flex-end" alignItems="center" padding={10} justifyContent="center">
           <Button>Cast</Button>
           <Popover
             bringFocusInside

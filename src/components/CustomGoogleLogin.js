@@ -4,8 +4,14 @@ import { GoogleLogin } from 'react-google-login';
 const clientId = '840466999232-ftkvdkmekuig8i89t793qggpmun6td9d.apps.googleusercontent.com';
 
 export default class Login extends React.Component {
+    constructor(props) {
+        super(props);
+        this.onSuccess = this.onSuccess.bind(this);
+    }
+
     onSuccess (res) {
-        console.log('[Login Success] currentUser:', res.profileObj);
+        console.log('[Login Success] currentUser:', res.profileObj.name);
+        this.props.handleToken(res);
     };
     
     onFailure(res) {
