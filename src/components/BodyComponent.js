@@ -3,6 +3,7 @@ import { Pane, Button, TakeActionIcon, BadgeIcon, FlashIcon, PersonIcon } from "
 import OffenceComponent from "./OffenceComponent"
 import DefenseComponent from "./DefenseComponent"
 import SpellsComponent from "./SpellsComponent"
+import SkillsAndBackgroundComponent from "./SkillsAndBackgroundComponent"
 
 export default class BodyComponent extends React.Component {
 
@@ -34,7 +35,7 @@ export default class BodyComponent extends React.Component {
       displayPane = <SpellsComponent/>
     } else {
       bgColor="blueTint"
-      displayPane = <Pane display="flex" width="950px" background={bgColor} borderRadius={3} margin="auto" alignItems="flex-end" alignItems="center" padding={10} justifyContent="center"><p>Skills and Background</p></Pane>
+      displayPane = <SkillsAndBackgroundComponent/>
     }
 
     return <div>
