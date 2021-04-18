@@ -5,7 +5,7 @@ export default class SmallLabelledValueComponent extends React.Component {
 
 render() {
 
-    return <Pane elevation={2} background="white" width="350px" height={50} margin={6} display="flex" justifyContent="center" alignItems="center">
+    return <Pane elevation={2} background="white" width="350px" height={50} margin={6} display="flex" justifyContent="center" alignItems="center" onClick={this.props.onClick}>
         <Pane flex={1} alignItems="center" display="flex">
             <Heading size={100} marginLeft={30}>{this.props.label}</Heading>
         </Pane>

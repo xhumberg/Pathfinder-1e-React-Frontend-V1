@@ -12,18 +12,11 @@ export default class BodyComponent extends React.Component {
     this.state = {
       selectedIndex: 0
     }
-  } 
-
-  async updateSheet(effectToToggle) {
-
   }
 
   render() {
-
     var displayPane = <Pane></Pane>; 
     var bgColor = "tint2"
-
-
     if (this.state.selectedIndex == 0) {
       bgColor = "redTint"
       displayPane = <OffenceComponent/>
@@ -32,7 +25,7 @@ export default class BodyComponent extends React.Component {
       displayPane = <DefenseComponent/>
     } else if (this.state.selectedIndex == 2) {
       bgColor = "yellowTint"
-      displayPane = <SpellsComponent/>
+      displayPane = <SpellsComponent character={this.props.character}/>
     } else {
       bgColor="blueTint"
       displayPane = <SkillsAndBackgroundComponent/>

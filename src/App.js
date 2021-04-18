@@ -4,13 +4,13 @@ import AbilitiesComponent from "./components/AbilitiesComponent";
 import BodyComponent from "./components/BodyComponent";
 import CharacterSelectMenuComponent from "./components/CharacterSelectMenuComponent";
 import './App.css';
-import {Spinner, Pane, Button, Paragraph, SideSheet, Position} from "evergreen-ui";
+import { Spinner, Pane } from "evergreen-ui";
 import Login from "./components/CustomGoogleLogin";
 import Logout from "./components/CustomGoogleLogout"
 import React from 'react';
 
-const CHARACTER_SERVICE_URL = "https://test-pathfinder-sheet.herokuapp.com";
-// const CHARACTER_SERVICE_URL = "http://localhost:8080";
+// const CHARACTER_SERVICE_URL = "https://test-pathfinder-sheet.herokuapp.com";
+const CHARACTER_SERVICE_URL = "http://localhost:8080";
 
 class App extends React.Component {
 
@@ -102,7 +102,7 @@ class App extends React.Component {
               <EffectsPopoverComponent parentCallback={this.handleCallback}/>
             </Pane>
           </Pane>
-          <BodyComponent />
+          <BodyComponent character={this.state.character}/>
       </div>
   }
 }

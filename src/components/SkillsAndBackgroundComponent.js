@@ -11,7 +11,7 @@ export default class SkillsAndBackgroundComponent extends React.Component {
 
   render() {
     return <div>
-        <Pane display="flex" width="950px" background="yellowTint" borderRadius={3} margin="auto" alignItems="flex-start" padding={10} justifyContent="center">
+        <Pane display="flex" width="950px" background="blueTint" borderRadius={3} margin="auto" alignItems="flex-start" padding={10} justifyContent="center">
           <Pane display="flex" width="475px" margin="auto" alignItems="center" flexDirection="column">
             <SmallLabelledValueComponent label="Acrobatics" value="+3" />
             <SmallLabelledValueComponent label="Appraise" value="+8" />
