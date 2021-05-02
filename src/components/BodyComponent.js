@@ -22,13 +22,13 @@ export default class BodyComponent extends React.Component {
       displayPane = <OffenceComponent/>
     } else if (this.state.selectedIndex == 1) {
       bgColor = "greenTint"
-      displayPane = <DefenseComponent/>
+      displayPane = <DefenseComponent character={this.props.character}/>
     } else if (this.state.selectedIndex == 2) {
       bgColor = "yellowTint"
       displayPane = <SpellsComponent character={this.props.character}/>
     } else {
       bgColor="blueTint"
-      displayPane = <SkillsAndBackgroundComponent/>
+      displayPane = <SkillsAndBackgroundComponent character={this.props.character}/>
     }
 
     return <div>
