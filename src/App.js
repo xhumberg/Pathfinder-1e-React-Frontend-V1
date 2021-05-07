@@ -7,7 +7,9 @@ import { Spinner, Pane, Button } from "evergreen-ui";
 import Login from "./components/CustomGoogleLogin";
 import Logout from "./components/CustomGoogleLogout"
 import React from 'react';
-import AbilitiesSidebarComponent from "./components/AbilitiesSidebarComponent";
+import ToggleablesSidebarComponent from "./components/SidebarComponents/ToggleablesSidebarComponent";
+import ResourcesSidebarComponent from "./components/SidebarComponents/ResourcesSidebarComponent"
+import ItemsSidebarComponent from "./components/SidebarComponents/ItemsSidebarComponent";
 
 const CHARACTER_SERVICE_URL = "https://test-pathfinder-sheet.herokuapp.com";
 // const CHARACTER_SERVICE_URL = "http://localhost:8080";
@@ -25,7 +27,9 @@ class App extends React.Component {
       loggedIn: false,
       availableCharacters: [],
       selectedCharacterID: "prosopa",
-      abilitySidebarVisible: false,
+      toggleablesSidebarVisible: false,
+      resourcesSidebarVisible: false,
+      itemsSidebarVisible: false
     }
     this.toggleEffect = this.toggleEffect.bind(this);
     this.handleGoogleToken = this.handleGoogleToken.bind(this);
@@ -54,7 +58,7 @@ class App extends React.Component {
     var url = CHARACTER_SERVICE_URL + "/character/" + this.state.selectedCharacterID + "/toggle/" + effectToToggle;
     if (this.state.googleToken.tokenObj)
       url = url + "?token=" + this.state.googleToken.tokenObj.id_token;
-    const toggleResponse = await fetch(url, {method: 'PUT'});
+    await fetch(url, {method: 'PUT'});
     this.updateCharacter(this.state.selectedCharacterID, false);
   }
 
@@ -63,7 +67,7 @@ class App extends React.Component {
     var url = CHARACTER_SERVICE_URL + "/character/" + this.state.selectedCharacterID + "/forceReload";
     if (this.state.googleToken.tokenObj)
       url = url + "?token=" + this.state.googleToken.tokenObj.id_token;
-    const toggleResponse = await fetch(url, {method: 'PUT'});
+    await fetch(url, {method: 'PUT'});
     this.updateCharacter(this.state.selectedCharacterID, true);
   }
 
@@ -78,7 +82,7 @@ class App extends React.Component {
   }
 
   closeSidebar() {
-    this.setState({abilitySidebarVisible: false});
+    this.setState({toggleablesSidebarVisible: false, resourcesSidebarVisible: false, itemsSidebarVisible: false});
   }
 
   async updateCharacter(loadID, displayLoading) {
@@ -106,7 +110,7 @@ class App extends React.Component {
       if (this.state.loading) {
         return <Pane display="flex" alignItems="center" justifyContent="center" height={400}><Spinner /></Pane>
       } else return <div className="App">
-          <Pane display="flex" width="900px" margin="auto" alignItems="center" justifyContent = "center" alignItems="center">
+          <Pane display="flex" width="900px" margin="auto" alignItems="center" justifyContent="center">
             {loadComponent}
             {googleComponent}
           </Pane>
@@ -116,13 +120,19 @@ class App extends React.Component {
             </Pane>
             <Pane alignItems="center" height="100%" padding={10} width="100%">
               <AbilitiesComponent data={this.state.character.ability}/>
-              <Button onClick={() => this.setState({ abilitySidebarVisible: true })}>View Abilities</Button>
+              <Button onClick={() => this.setState({ toggleablesSidebarVisible: true })}>View Toggleables & Feats</Button>
+              <Button onClick={() => this.setState({ resourcesSidebarVisible: true })}>View Resources & Abilities</Button>
+              <Button onClick={() => this.setState({ itemsSidebarVisible: true })}>View Items & Gold</Button>
             </Pane>
           </Pane>
           <BodyComponent character={this.state.character}/>
-          <AbilitiesSidebarComponent visible={this.state.abilitySidebarVisible} onClose={this.closeSidebar} 
-          character={this.state.character} toggle={this.toggleEffect} silentLoad={this.state.silentLoading}
-          forceDatabaseReload={this.forceDatabaseReload}/>
+          <ToggleablesSidebarComponent visible={this.state.toggleablesSidebarVisible} onClose={this.closeSidebar} 
+            character={this.state.character} toggle={this.toggleEffect} silentLoad={this.state.silentLoading}
+            forceDatabaseReload={this.forceDatabaseReload}/>
+          <ResourcesSidebarComponent visible={this.state.resourcesSidebarVisible} onClose={this.closeSidebar}
+            character={this.state.character} silentLoad={this.state.silentLoading}/>
+          <ItemsSidebarComponent visible={this.state.itemsSidebarVisible} onClose={this.closeSidebar}
+            character={this.state.character} silentLoad={this.state.silentLoading}/>
       </div>
   }
 }

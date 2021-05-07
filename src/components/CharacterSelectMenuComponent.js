@@ -1,8 +1,6 @@
 import { SelectMenu, Button } from 'evergreen-ui';
 import React from 'react';
 
-const clientId = '840466999232-ftkvdkmekuig8i89t793qggpmun6td9d.apps.googleusercontent.com';
-
 export default class Login extends React.Component {
     constructor(props) {
         super(props);

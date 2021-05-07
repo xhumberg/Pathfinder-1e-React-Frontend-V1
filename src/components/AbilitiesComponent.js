@@ -1,5 +1,5 @@
 import React from 'react';
-import { Heading, Spinner, Table, Strong } from "evergreen-ui";
+import { Heading, Table, Strong } from "evergreen-ui";
 
 export default class AbilitiesComponent extends React.Component {
 
@@ -33,11 +33,6 @@ export default class AbilitiesComponent extends React.Component {
                 )}
             </Table.Body>
         </Table>
-      </div>
-    return <div>
-        {this.state.data.map((ability) =>
-          <li>{ability.name}</li>
-        )}
       </div>
   };
 }

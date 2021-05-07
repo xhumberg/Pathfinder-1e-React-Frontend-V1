@@ -1,6 +1,5 @@
 import React from 'react';
-import { Pane, Heading, Text, Checkbox, Popover, Button, Table, Dialog} from "evergreen-ui";
-import SpellRowComponent from './SpellRowComponent';
+import { Heading, Table} from "evergreen-ui";
 
 export default class SpellsOfLevelComponent extends React.Component {
 

@@ -1,6 +1,6 @@
 import React from 'react';
-import { Pane, Heading, Text, Checkbox, Popover, Button, Table, Dialog} from "evergreen-ui";
-import SpellRowComponent from './SpellRowComponent';
+import { Pane, Heading } from "evergreen-ui";
+import ClickForDescriptionSpellComponent from './ClickForDescriptionSpellComponent';
 import SpellsOfLevelComponent from './SpellsOfLevelComponent'
 
 export default class SpellsComponent extends React.Component {
@@ -14,7 +14,7 @@ export default class SpellsComponent extends React.Component {
       var concentration = spellcasting.concentration;
 
       var spellcastingInformation = spellcasting.spellsPerLevel.map((level) =>
-        <SpellsOfLevelComponent levelString={level.levelString} perDay={level.perDay} spellList={level.spellsCast.map((spell) => <SpellRowComponent SpellName={spell.name} SpellDescription={spell.description}/>)}/>
+        <SpellsOfLevelComponent levelString={level.levelString} perDay={level.perDay} spellList={level.spellsCast.map((spell) => <ClickForDescriptionSpellComponent name={spell.name} description={spell.description}/>)}/>
       );
 
       return <div>
