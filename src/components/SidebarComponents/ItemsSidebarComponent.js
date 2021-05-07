@@ -13,14 +13,14 @@ export default class ItemsSidebarComponent extends React.Component {
       <Spinner />
     </Pane>
     if (!this.props.silentLoad) {
-      inside = <Pane margin="auto" padding={30} display="flex" flexDirection="column" alignItems="center">
-      <SmallLabelledValueComponent label="Total Earned Gold" value="47000"/>
-      <SmallLabelledValueComponent label="Total Spent Gold" value="46000"/>
-      <SmallLabelledValueComponent label="Total Remaining Gold" value="1000"/>
-      <Pane height={20}></Pane>
-      <Strong>Items<hr /></Strong>
-      <ClickForDescriptionComponent name="Test Item" description="Yay Stuff!"/>
-      <TrackedResourceComponent name="Wand of Cure Light Wounds" description="Heals! Yay!" amount={48}/>
+        inside = <Pane margin="auto" padding={30} display="flex" flexDirection="column" alignItems="center">
+        <SmallLabelledValueComponent label="Total Earned Gold" value={this.props.character.gold.totalEarned}/>
+        <SmallLabelledValueComponent label="Total Spent Gold" value={this.props.character.gold.totalSpent}/>
+        <SmallLabelledValueComponent label="Total Remaining Gold" value={this.props.character.gold.totalRemaining}/>
+        <Pane height={20}></Pane>
+        <Strong>Items<hr /></Strong>
+        {this.props.character.trackedItems.map((item) => <TrackedResourceComponent name={item.name} description={item.description} amount={item.amount}/>)}
+        {this.props.character.items.map((item) => <ClickForDescriptionComponent name={item.name} description={item.description} />)}
     </Pane>
     } 
     

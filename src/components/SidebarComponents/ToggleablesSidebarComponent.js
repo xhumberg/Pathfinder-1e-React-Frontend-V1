@@ -20,9 +20,7 @@ export default class ToggleablesSidebarComponent extends React.Component {
       {this.props.character.enabledAdjustments.map((ability) => <SmallLabelledValueComponent label={ability} onClick={() => this.props.toggle(ability)} />)}
       
       <Strong marginTop={25}>Feats and Traits<hr /></Strong>
-      <ClickForDescriptionComponent name="Test Feat" description="This is the description for a test feat."/>
-      <ClickForDescriptionComponent name="Test Feat" description="This is the description for a test feat."/>
-      <ClickForDescriptionComponent name="Test Feat" description="This is the description for a test feat."/>
+      {this.props.character.feats.map((feat) => <ClickForDescriptionComponent name={feat.name} description={feat.description}/>)}
       
       <Strong marginTop={25}>Database Refresh<hr /></Strong>
       <Button onClick={async () => this.props.forceDatabaseReload()}>Reload From Database</Button>

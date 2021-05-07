@@ -14,14 +14,14 @@ export default class ResourcesSidebarComponent extends React.Component {
     if (!this.props.silentLoad) {
       inside = <Pane margin="auto" padding={30} display="flex" flexDirection="column" alignItems="center">
       <Strong>Class Abilities<hr /></Strong>
-      <ClickForDescriptionComponent name="Test Class Ability" description="Yay Stuff!"/>
-      <TrackedResourceComponent name="Test Tracked Resource" description="Yay Stuff!" amount={3}/>
+      {this.props.character.classTrackedFeatures.map((feature) => <TrackedResourceComponent name={feature.name} description={feature.description} amount={feature.amount}/>)}
+      {this.props.character.classFeatures.map((feature) => <ClickForDescriptionComponent name={feature.name} description={feature.description} />)}
 
       <Strong marginTop={25}>Racial Abilities<hr /></Strong>
-      <ClickForDescriptionComponent name="Resist Racial Ability" description="This does things!"/>
+      {this.props.character.racialTraits.map((trait) => <ClickForDescriptionComponent name={trait.name} description={trait.description} />)}
       
       <Strong marginTop={25}>Misc Tracked Resources<hr /></Strong>
-      <TrackedResourceComponent name="Test Resource" description="This resource can be used!" amount={1}/>
+      {this.props.character.miscTrackedResources.map((resource) => <TrackedResourceComponent name={resource.name} description={resource.description} amount={resource.amount} />)}
     </Pane>
     } 
     
