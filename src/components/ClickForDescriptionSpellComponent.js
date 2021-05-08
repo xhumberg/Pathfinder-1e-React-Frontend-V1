@@ -14,12 +14,18 @@ export default class ClickForDescriptionSpellComponent extends React.Component {
 
 
     render() {
+
+        var castButton = <Button>Cast</Button>
+        if (this.props.cast) {
+            castButton = <Button>Uncast</Button>
+        }
+
         return <Table.Row alignItems="center" height="auto" padding={2}>
             <Dialog hasFooter={false} isShown={this.state.displayDialog} title={this.state.nameOnDisplay} onCloseComplete={() => this.setState({displayDialog: false})}>
                 <div dangerouslySetInnerHTML={{__html: this.state.descriptionOnDisplay}} />
             </Dialog>
-            <Button>Cast</Button>
-            <SmallLabelledValueComponent label={this.props.name} onClick={() => this.setState({displayDialog: true})}/>
+            {castButton}
+            <SmallLabelledValueComponent label={this.props.name} onClick={() => this.setState({displayDialog: true})} used={this.props.cast}/>
         </Table.Row>
     };
 }

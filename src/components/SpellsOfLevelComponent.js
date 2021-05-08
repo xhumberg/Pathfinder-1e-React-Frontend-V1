@@ -8,7 +8,8 @@ export default class SpellsOfLevelComponent extends React.Component {
       <Heading size={600} marginTop={20} marginBottom="5px">{this.props.levelString} ({this.props.perDay}/day)</Heading>
       <Table width="350px" margin="auto">
         <Table.Body>
-          {this.props.spellList}
+          {this.props.preppedSpellList}
+          {this.props.castSpellList}
         </Table.Body>
       </Table>
     </div>

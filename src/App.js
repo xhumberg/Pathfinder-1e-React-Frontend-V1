@@ -11,8 +11,8 @@ import ToggleablesSidebarComponent from "./components/SidebarComponents/Toggleab
 import ResourcesSidebarComponent from "./components/SidebarComponents/ResourcesSidebarComponent"
 import ItemsSidebarComponent from "./components/SidebarComponents/ItemsSidebarComponent";
 
-// const CHARACTER_SERVICE_URL = "https://test-pathfinder-sheet.herokuapp.com";
-const CHARACTER_SERVICE_URL = "http://localhost:8080";
+const CHARACTER_SERVICE_URL = "https://test-pathfinder-sheet.herokuapp.com";
+// const CHARACTER_SERVICE_URL = "http://localhost:8080";
 
 class App extends React.Component {
 
