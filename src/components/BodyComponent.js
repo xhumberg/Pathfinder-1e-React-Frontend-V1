@@ -24,7 +24,7 @@ export default class BodyComponent extends React.Component {
     }
     var displayPane = <Pane></Pane>; 
     if (this.state.selectedIndex === 0) {
-      displayPane = <OffenceComponent/>
+      displayPane = <OffenceComponent character={this.props.character}/>
     } else if (this.state.selectedIndex === 1) {
       displayPane = <DefenseComponent character={this.props.character}/>
     } else if (this.state.selectedIndex === 2) {

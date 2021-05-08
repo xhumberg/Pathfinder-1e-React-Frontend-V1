@@ -8,7 +8,7 @@ export default class DefenseComponent extends React.Component {
 
   render() {
     return <div>
-        <HPComponent currentHP={29} maxHP={80} width={800}/>
+        <HPComponent currentHP={this.props.character.currentHp} maxHP={this.props.character.maxHp} width={800}/>
         <Pane display="flex" width="950px" background="greenTint" borderRadius={3} margin="auto" alignItems="flex-start" padding={10} justifyContent="center">
           <Pane display="flex" width="475px" margin="auto" alignItems="center" flexDirection="column">
             <LargeLabelledNumberComponent label="AC" value={this.props.character.ac} />
