@@ -15,9 +15,9 @@ export default class ClickForDescriptionSpellComponent extends React.Component {
 
     render() {
 
-        var castButton = <Button>Cast</Button>
+        var castButton = <Button onClick={() => this.props.onButtonClick()}>Cast</Button>
         if (this.props.cast) {
-            castButton = <Button>Uncast</Button>
+            castButton = <Button onClick={() => this.props.onButtonClick()}>Uncast</Button>
         }
 
         return <Table.Row alignItems="center" height="auto" padding={2}>

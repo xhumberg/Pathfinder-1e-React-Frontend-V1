@@ -37,6 +37,10 @@ class App extends React.Component {
     this.updateSelectedCharacter = this.updateSelectedCharacter.bind(this);
     this.closeSidebar = this.closeSidebar.bind(this);
     this.forceDatabaseReload = this.forceDatabaseReload.bind(this);
+    this.castSpell = this.castSpell.bind(this);
+    this.uncastSpell = this.uncastSpell.bind(this);
+    this.heal = this.heal.bind(this);
+    this.damage = this.damage.bind(this);
   }
 
   async handleGoogleToken(token) {
@@ -58,6 +62,50 @@ class App extends React.Component {
     var url = CHARACTER_SERVICE_URL + "/character/" + this.state.selectedCharacterID + "/toggle/" + effectToToggle;
     if (this.state.googleToken.tokenObj)
       url = url + "?token=" + this.state.googleToken.tokenObj.id_token;
+    await fetch(url, {method: 'PUT'});
+    this.updateCharacter(this.state.selectedCharacterID, false);
+  }
+
+  async castSpell(classId, spellName, spellLevel) {
+    this.setState({silentLoading: true});
+    console.log("Casting spell: " + spellName);
+    var url = CHARACTER_SERVICE_URL + "/character/" + this.state.selectedCharacterID + "/castSpell"
+    + "?token=" + this.state.googleToken.tokenObj.id_token
+    + "&classId=" + classId
+    + "&spellName=" + spellName
+    + "&level=" + spellLevel;
+    await fetch(url, {method: 'PUT'});
+    this.updateCharacter(this.state.selectedCharacterID, false);
+  }
+
+  async uncastSpell(classId, spellName, spellLevel) {
+    this.setState({silentLoading: true});
+    console.log("Uncasting spell: " + spellName);
+    var url = CHARACTER_SERVICE_URL + "/character/" + this.state.selectedCharacterID + "/uncastSpell"
+    + "?token=" + this.state.googleToken.tokenObj.id_token
+    + "&classId=" + classId
+    + "&spellName=" + spellName
+    + "&level=" + spellLevel;
+    await fetch(url, {method: 'PUT'});
+    this.updateCharacter(this.state.selectedCharacterID, false);
+  }
+
+  async heal(amount) {
+    this.setState({silentLoading: true});
+    console.log("Healing " + amount);
+    var url = CHARACTER_SERVICE_URL + "/character/" + this.state.selectedCharacterID + "/heal"
+    + "?token=" + this.state.googleToken.tokenObj.id_token
+    + "&amount=" + amount;
+    await fetch(url, {method: 'PUT'});
+    this.updateCharacter(this.state.selectedCharacterID, false);
+  }
+
+  async damage(amount) {
+    this.setState({silentLoading: true});
+    console.log("Healing " + amount);
+    var url = CHARACTER_SERVICE_URL + "/character/" + this.state.selectedCharacterID + "/damage"
+    + "?token=" + this.state.googleToken.tokenObj.id_token
+    + "&amount=" + amount;
     await fetch(url, {method: 'PUT'});
     this.updateCharacter(this.state.selectedCharacterID, false);
   }
@@ -100,7 +148,7 @@ class App extends React.Component {
       let googleComponent;
       let loadComponent;
       if (this.state.loggedIn) {
-        googleComponent = <Logout handleLogout={this.handleGoogleLogout} name={this.state.googleToken.profileObj.name}/>
+        googleComponent = <Logout handleLogout={this.handleGoogleLogout} name={this.state.googleToken.profileObj.name}/> 
         loadComponent = <CharacterSelectMenuComponent availableCharacters={this.state.availableCharacters} updateSelectedCharacter={this.updateSelectedCharacter}/>
       } else {
         googleComponent = <Login handleToken={this.handleGoogleToken}/>
@@ -125,7 +173,7 @@ class App extends React.Component {
               <Button onClick={() => this.setState({ itemsSidebarVisible: true })}>View Items & Gold</Button>
             </Pane>
           </Pane>
-          <BodyComponent character={this.state.character}/>
+          <BodyComponent character={this.state.character} castSpell={this.castSpell} uncastSpell={this.uncastSpell} heal={this.heal} damage={this.damage}/>
           <ToggleablesSidebarComponent visible={this.state.toggleablesSidebarVisible} onClose={this.closeSidebar} 
             character={this.state.character} toggle={this.toggleEffect} silentLoad={this.state.silentLoading}
             forceDatabaseReload={this.forceDatabaseReload}/>

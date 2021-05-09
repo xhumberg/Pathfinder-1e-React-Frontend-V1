@@ -14,8 +14,8 @@ export default class SpellsComponent extends React.Component {
       var concentration = spellcasting.concentration;
 
       var spellcastingInformation = spellcasting.spellsPerLevel.map((level) => {
-        var preppedSpellList = level.spellsPrepped.map((spell) => <ClickForDescriptionSpellComponent name={spell.name} description={spell.description}/>);
-        var castSpellList = level.spellsCast.map((spell) => <ClickForDescriptionSpellComponent name={spell.name} description={spell.description} cast={true}/>);
+        var preppedSpellList = level.spellsPrepped.map((spell) => <ClickForDescriptionSpellComponent name={spell.name} description={spell.description} onButtonClick={() => this.props.castSpell(spellcasting.id, spell.name, level.level)}/>); 
+        var castSpellList = level.spellsCast.map((spell) => <ClickForDescriptionSpellComponent name={spell.name} description={spell.description} cast={true} onButtonClick={() => this.props.uncastSpell(spellcasting.id, spell.name, level.level)}/>);
         return (<SpellsOfLevelComponent levelString={level.levelString} perDay={level.perDay} preppedSpellList={preppedSpellList} castSpellList={castSpellList}/>)
       })
 

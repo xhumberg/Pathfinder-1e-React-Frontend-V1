@@ -1,7 +1,10 @@
 import React from 'react';
-import { Pane, Heading, Button } from "evergreen-ui";
+import { Pane, Heading, Button, Popover, TextInput} from "evergreen-ui";
+import ButtonPopoverComponent from './ButtonPopoverComponent';
 
 export default class HPComponent extends React.Component {
+
+
 
   render() {
     var percentRemaining = this.props.currentHP/this.props.maxHP;
@@ -21,11 +24,11 @@ export default class HPComponent extends React.Component {
       </Pane>
     </Pane>
     <Pane display="flex" marginTop={5}>
-      <Pane flex={1} alignItems="center" display="flex">
-        <Button height={40} marginLeft={75}>Damage</Button>
+      <Pane flex={1} alignItems="center" display="flex" marginLeft={75}>
+        <ButtonPopoverComponent buttonText="Damage" placeholderText="Damage amount..." onSubmit={this.props.damage}/>
       </Pane>
-      <Pane>
-        <Button height={40} marginRight={75}>Heal</Button>
+      <Pane marginRight={75}>
+        <ButtonPopoverComponent buttonText="Heal" placeholderText="Healing amount..." onSubmit={this.props.heal}/>
       </Pane>
     </Pane>
   </Pane>

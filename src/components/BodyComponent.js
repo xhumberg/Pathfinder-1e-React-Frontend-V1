@@ -26,9 +26,9 @@ export default class BodyComponent extends React.Component {
     if (this.state.selectedIndex === 0) {
       displayPane = <OffenceComponent character={this.props.character}/>
     } else if (this.state.selectedIndex === 1) {
-      displayPane = <DefenseComponent character={this.props.character}/>
+      displayPane = <DefenseComponent character={this.props.character} heal={this.props.heal} damage={this.props.damage}/>
     } else if (this.state.selectedIndex === 2) {
-      displayPane = <SpellsComponent character={this.props.character}/>
+      displayPane = <SpellsComponent character={this.props.character} castSpell={this.props.castSpell} uncastSpell={this.props.uncastSpell}/>
     } else {
       displayPane = <SkillsAndBackgroundComponent character={this.props.character}/>
     }
