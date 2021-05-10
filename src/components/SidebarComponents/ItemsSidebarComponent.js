@@ -19,7 +19,7 @@ export default class ItemsSidebarComponent extends React.Component {
         <SmallLabelledValueComponent label="Total Remaining Gold" value={this.props.character.gold.totalRemaining}/>
         <Pane height={20}></Pane>
         <Strong>Items<hr /></Strong>
-        {this.props.character.trackedItems.map((item) => <TrackedResourceComponent name={item.name} description={item.description} amount={item.amount}/>)}
+        {this.props.character.trackedItems.map((item) => <TrackedResourceComponent name={item.name} description={item.description} amount={item.amount} id={item.resourceId} type="ITEM" reduce={this.props.reduce} increase={this.props.increase}/>)}
         {this.props.character.items.map((item) => <ClickForDescriptionComponent name={item.name} description={item.description} />)}
     </Pane>
     } 

@@ -15,9 +15,9 @@ export default class TrackedResourceComponent extends React.Component {
 
     render() {
         return <Pane display="flex" alignItems="center">
-            <Button height={32}>-</Button>
+            <Button height={32} onClick={() => this.props.reduce(this.props.id, this.props.type)}>-</Button>
             <ClickForDescriptionComponent name={this.props.name} description={this.props.description} value={this.props.amount}/>
-            <Button height={32}>+</Button>
+            <Button height={32} onClick={() => this.props.increase(this.props.id, this.props.type)}>+</Button>
         </Pane>
     };
 }

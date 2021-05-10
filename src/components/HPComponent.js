@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pane, Heading, Button, Popover, TextInput} from "evergreen-ui";
+import { Pane, Heading } from "evergreen-ui";
 import ButtonPopoverComponent from './ButtonPopoverComponent';
 
 export default class HPComponent extends React.Component {

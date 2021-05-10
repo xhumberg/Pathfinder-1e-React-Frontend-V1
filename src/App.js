@@ -11,8 +11,8 @@ import ToggleablesSidebarComponent from "./components/SidebarComponents/Toggleab
 import ResourcesSidebarComponent from "./components/SidebarComponents/ResourcesSidebarComponent"
 import ItemsSidebarComponent from "./components/SidebarComponents/ItemsSidebarComponent";
 
-const CHARACTER_SERVICE_URL = "https://test-pathfinder-sheet.herokuapp.com";
-// const CHARACTER_SERVICE_URL = "http://localhost:8080";
+// const CHARACTER_SERVICE_URL = "https://test-pathfinder-sheet.herokuapp.com";
+const CHARACTER_SERVICE_URL = "http://localhost:8080";
 
 class App extends React.Component {
 
@@ -41,6 +41,8 @@ class App extends React.Component {
     this.uncastSpell = this.uncastSpell.bind(this);
     this.heal = this.heal.bind(this);
     this.damage = this.damage.bind(this);
+    this.reduce = this.reduce.bind(this);
+    this.increase = this.increase.bind(this);
   }
 
   async handleGoogleToken(token) {
@@ -106,6 +108,22 @@ class App extends React.Component {
     var url = CHARACTER_SERVICE_URL + "/character/" + this.state.selectedCharacterID + "/damage"
     + "?token=" + this.state.googleToken.tokenObj.id_token
     + "&amount=" + amount;
+    await fetch(url, {method: 'PUT'});
+    this.updateCharacter(this.state.selectedCharacterID, false);
+  }
+
+  async reduce(resourceId, type) {
+    this.setState({silentLoading: true});
+    console.log("Reducing " + type + " resource id: " + resourceId);
+    var url = CHARACTER_SERVICE_URL + "/character/" + this.state.selectedCharacterID + "/reduceResource/" + type + "/" + resourceId + "?token=" + this.state.googleToken.tokenObj.id_token;
+    await fetch(url, {method: 'PUT'});
+    this.updateCharacter(this.state.selectedCharacterID, false);
+  }
+
+  async increase(resourceId, type) {
+    this.setState({silentLoading: true});
+    console.log("Reducing " + type + " resource id: " + resourceId);
+    var url = CHARACTER_SERVICE_URL + "/character/" + this.state.selectedCharacterID + "/increaseResource/" + type + "/" + resourceId + "?token=" + this.state.googleToken.tokenObj.id_token;
     await fetch(url, {method: 'PUT'});
     this.updateCharacter(this.state.selectedCharacterID, false);
   }
@@ -178,9 +196,11 @@ class App extends React.Component {
             character={this.state.character} toggle={this.toggleEffect} silentLoad={this.state.silentLoading}
             forceDatabaseReload={this.forceDatabaseReload}/>
           <ResourcesSidebarComponent visible={this.state.resourcesSidebarVisible} onClose={this.closeSidebar}
-            character={this.state.character} silentLoad={this.state.silentLoading}/>
+            character={this.state.character} silentLoad={this.state.silentLoading}
+            reduce={this.reduce} increase={this.increase}/>
           <ItemsSidebarComponent visible={this.state.itemsSidebarVisible} onClose={this.closeSidebar}
-            character={this.state.character} silentLoad={this.state.silentLoading}/>
+            character={this.state.character} silentLoad={this.state.silentLoading}
+            reduce={this.reduce} increase={this.increase}/>
       </div>
   }
 }
