@@ -3,26 +3,26 @@ import AbilitiesComponent from "./components/AbilitiesComponent";
 import BodyComponent from "./components/BodyComponent";
 import CharacterSelectMenuComponent from "./components/CharacterSelectMenuComponent";
 import './App.css';
-import { Spinner, Pane, Button } from "evergreen-ui";
+import { Spinner, Pane, Button, Heading } from "evergreen-ui";
 import Login from "./components/CustomGoogleLogin";
 import Logout from "./components/CustomGoogleLogout"
 import React from 'react';
 import ToggleablesSidebarComponent from "./components/SidebarComponents/ToggleablesSidebarComponent";
 import ResourcesSidebarComponent from "./components/SidebarComponents/ResourcesSidebarComponent"
 import ItemsSidebarComponent from "./components/SidebarComponents/ItemsSidebarComponent";
+import SmallLabelledValueComponent from './components/PaneComponents/SmallLabelledValueComponent';
 
-// const CHARACTER_SERVICE_URL = "https://test-pathfinder-sheet.herokuapp.com";
-const CHARACTER_SERVICE_URL = "http://localhost:8080";
+const CHARACTER_SERVICE_URL = "https://test-pathfinder-sheet.herokuapp.com";
+// const CHARACTER_SERVICE_URL = "http://localhost:8080";
 
 class App extends React.Component {
 
   constructor(props) {
     super(props)
     this.state = {
-      loading: true,
+      loading: false,
       silentLoading: true,
-      character: {},
-      test: "hello",
+      character: null,
       googleToken: {},
       loggedIn: false,
       availableCharacters: [],
@@ -55,7 +55,8 @@ class App extends React.Component {
   }
 
   handleGoogleLogout() {
-    this.setState({googleToken: {}, loggedIn: false, availableCharacters: []})
+    this.setState({googleToken: {}, loggedIn: false, availableCharacters: [], character: null, selectedCharacterID: "", 
+    toggleablesSidebarVisible: false, resourcesSidebarVisible: false, itemsSidebarVisible: false});
   }
 
   async toggleEffect(effectToToggle) {
@@ -137,10 +138,6 @@ class App extends React.Component {
     this.updateCharacter(this.state.selectedCharacterID, true);
   }
 
-  componentDidMount() {
-    this.updateCharacter(this.state.selectedCharacterID, true);
-  }
-
   updateSelectedCharacter(newID) {
     console.log("Told to update character id " + newID);
     this.setState({selectedCharacterID: newID})
@@ -173,35 +170,70 @@ class App extends React.Component {
         loadComponent = "";
       }
 
+      var loginPane = <Pane display="flex" flexDirection="column" alignItems="center" justifyContent="center" margin="auto" height={700}>
+      <Heading size={900}>Xavier's Pathfinder Character Sheet</Heading>
+      <Heading size={900}>for Pathfinder 1st Edition</Heading>
+      <Pane display="flex" flexDirection="column" elevation={3} height={200} width={500} alignItems="center" justifyContent="center" borderRadius={50} marginTop={50}>
+        <Pane padding={10} margin="auto">
+        {googleComponent}
+        </Pane>
+      </Pane>
+    </Pane>
+
+      var loadPane = <Pane display="flex" alignItems="center" justifyContent="center" margin="auto" height={700}>
+        <Pane display="flex" flexDirection="column" elevation={3} padding={20} width={500} alignItems="center" justifyContent="center" borderRadius={50}>
+          <Heading size={700}>Load character:</Heading>
+          <Pane border scroll display="flex" flexDirection="column" alignItems="center" justifyContent="center" margin="auto" width={425} marginTop={10} padding={10} borderRadius={10}>
+            {this.state.availableCharacters.map((character) => <SmallLabelledValueComponent label={JSON.parse(character).characterName} onClick={() => this.updateSelectedCharacter(JSON.parse(character).characterID)}/>)}
+          </Pane>
+          <Pane padding={10} margin="auto" marginBottom={0} marginTop={20}>
+          {googleComponent}
+          </Pane>
+        </Pane>
+      </Pane>
+
       if (this.state.loading) {
         return <Pane display="flex" alignItems="center" justifyContent="center" height={400}><Spinner /></Pane>
-      } else return <div className="App">
+      } else if (!this.state.loggedIn) {
+        return <div className="App">
+          {loginPane}
+        </div>
+      } else if (this.state.selectedCharacterID === "" || this.state.character === null) {
+        return <div className="App">
+          {loadPane}
+        </div>
+      } else { 
+        var appPane = <Pane>
           <Pane display="flex" width="900px" margin="auto" alignItems="center" justifyContent="center">
-            {loadComponent}
-            {googleComponent}
+          {loadComponent}
+          {googleComponent}
+        </Pane>
+        <Pane display="flex" width="900px" background="tint2" borderRadius={3} margin="auto" alignItems="flex-end">
+          <Pane flex={1} alignItems="center" display="flex" padding={10}>
+            <CharacterComponent data={this.state.character}/>
           </Pane>
-          <Pane display="flex" width="900px" background="tint2" borderRadius={3} margin="auto" alignItems="flex-end">
-            <Pane flex={1} alignItems="center" display="flex" padding={10}>
-              <CharacterComponent data={this.state.character}/>
-            </Pane>
-            <Pane alignItems="center" height="100%" padding={10} width="100%">
-              <AbilitiesComponent data={this.state.character.ability}/>
-              <Button onClick={() => this.setState({ toggleablesSidebarVisible: true })}>View Toggleables & Feats</Button>
-              <Button onClick={() => this.setState({ resourcesSidebarVisible: true })}>View Resources & Abilities</Button>
-              <Button onClick={() => this.setState({ itemsSidebarVisible: true })}>View Items & Gold</Button>
-            </Pane>
+          <Pane alignItems="center" height="100%" padding={10} width="100%">
+            <AbilitiesComponent data={this.state.character.ability}/>
+            <Button onClick={() => this.setState({ toggleablesSidebarVisible: true })}>View Toggleables & Feats</Button>
+            <Button onClick={() => this.setState({ resourcesSidebarVisible: true })}>View Resources & Abilities</Button>
+            <Button onClick={() => this.setState({ itemsSidebarVisible: true })}>View Items & Gold</Button>
           </Pane>
-          <BodyComponent character={this.state.character} castSpell={this.castSpell} uncastSpell={this.uncastSpell} heal={this.heal} damage={this.damage}/>
-          <ToggleablesSidebarComponent visible={this.state.toggleablesSidebarVisible} onClose={this.closeSidebar} 
-            character={this.state.character} toggle={this.toggleEffect} silentLoad={this.state.silentLoading}
-            forceDatabaseReload={this.forceDatabaseReload}/>
-          <ResourcesSidebarComponent visible={this.state.resourcesSidebarVisible} onClose={this.closeSidebar}
-            character={this.state.character} silentLoad={this.state.silentLoading}
-            reduce={this.reduce} increase={this.increase}/>
-          <ItemsSidebarComponent visible={this.state.itemsSidebarVisible} onClose={this.closeSidebar}
-            character={this.state.character} silentLoad={this.state.silentLoading}
-            reduce={this.reduce} increase={this.increase}/>
-      </div>
+        </Pane>
+        <BodyComponent character={this.state.character} castSpell={this.castSpell} uncastSpell={this.uncastSpell} heal={this.heal} damage={this.damage}/>
+        <ToggleablesSidebarComponent visible={this.state.toggleablesSidebarVisible} onClose={this.closeSidebar} 
+          character={this.state.character} toggle={this.toggleEffect} silentLoad={this.state.silentLoading}
+          forceDatabaseReload={this.forceDatabaseReload}/>
+        <ResourcesSidebarComponent visible={this.state.resourcesSidebarVisible} onClose={this.closeSidebar}
+          character={this.state.character} silentLoad={this.state.silentLoading}
+          reduce={this.reduce} increase={this.increase}/>
+        <ItemsSidebarComponent visible={this.state.itemsSidebarVisible} onClose={this.closeSidebar}
+          character={this.state.character} silentLoad={this.state.silentLoading}
+          reduce={this.reduce} increase={this.increase}/>
+        </Pane>
+        return <div className="App">
+          {appPane}
+        </div>
+      }
   }
 }
 

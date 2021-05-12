@@ -22,7 +22,7 @@ export default class Login extends React.Component {
     return <div>
             <GoogleLogin
                 clientId={clientId}
-                buttonText='Login to edit'
+                buttonText='Login with Google'
                 onSuccess={this.onSuccess}
                 onFailure={this.onFailure}
                 cookiePolicy={'single_host_origin'}

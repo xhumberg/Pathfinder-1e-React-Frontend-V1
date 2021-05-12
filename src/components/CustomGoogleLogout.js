@@ -16,14 +16,11 @@ export default class Logout extends React.Component {
 
     render() {
         const buttonText = "Logout " + this.props.name;
-    return <div>
-            <GoogleLogout
+    return <GoogleLogout
                 clientId={clientId}
                 buttonText={buttonText}
                 onLogoutSuccess={this.logout}
-                style={{ marginTop: '100px' }}
             />
-        </div>
     }
 
 }
