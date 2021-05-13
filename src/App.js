@@ -12,8 +12,8 @@ import ResourcesSidebarComponent from "./components/SidebarComponents/ResourcesS
 import ItemsSidebarComponent from "./components/SidebarComponents/ItemsSidebarComponent";
 import SmallLabelledValueComponent from './components/PaneComponents/SmallLabelledValueComponent';
 
-const CHARACTER_SERVICE_URL = "https://test-pathfinder-sheet.herokuapp.com";
-// const CHARACTER_SERVICE_URL = "http://localhost:8080";
+// const CHARACTER_SERVICE_URL = "https://test-pathfinder-sheet.herokuapp.com";
+const CHARACTER_SERVICE_URL = "http://localhost:8080";
 
 class App extends React.Component {
 
