@@ -6,7 +6,6 @@ import './App.css';
 import { Spinner, Pane, Button, Heading } from "evergreen-ui";
 import Login from "./components/CustomGoogleLogin";
 import Logout from "./components/CustomGoogleLogout"
-import { useHistory } from "react-router-dom"
 import React from 'react';
 import ToggleablesSidebarComponent from "./components/SidebarComponents/ToggleablesSidebarComponent";
 import ResourcesSidebarComponent from "./components/SidebarComponents/ResourcesSidebarComponent"
