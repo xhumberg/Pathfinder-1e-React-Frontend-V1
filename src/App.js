@@ -6,14 +6,15 @@ import './App.css';
 import { Spinner, Pane, Button, Heading } from "evergreen-ui";
 import Login from "./components/CustomGoogleLogin";
 import Logout from "./components/CustomGoogleLogout"
+import { useHistory } from "react-router-dom"
 import React from 'react';
 import ToggleablesSidebarComponent from "./components/SidebarComponents/ToggleablesSidebarComponent";
 import ResourcesSidebarComponent from "./components/SidebarComponents/ResourcesSidebarComponent"
 import ItemsSidebarComponent from "./components/SidebarComponents/ItemsSidebarComponent";
 import SmallLabelledValueComponent from './components/PaneComponents/SmallLabelledValueComponent';
 
-// const CHARACTER_SERVICE_URL = "https://test-pathfinder-sheet.herokuapp.com";
-const CHARACTER_SERVICE_URL = "http://localhost:8080";
+const CHARACTER_SERVICE_URL = "https://test-pathfinder-sheet.herokuapp.com";
+// const CHARACTER_SERVICE_URL = "http://localhost:8080";
 
 class App extends React.Component {
 
@@ -26,7 +27,7 @@ class App extends React.Component {
       googleToken: {},
       loggedIn: false,
       availableCharacters: [],
-      selectedCharacterID: "prosopa",
+      selectedCharacterID: "",
       toggleablesSidebarVisible: false,
       resourcesSidebarVisible: false,
       itemsSidebarVisible: false
@@ -52,11 +53,25 @@ class App extends React.Component {
     const response = await fetch(url);
     const data = await response.json();
     this.setState({availableCharacters: data})
+
+    console.log(window.location.href)
+    var selectedCharacterID = "";
+    if (window.location.href.includes('/') && window.location.href.split('/').length === 4) {
+      selectedCharacterID = window.location.href.split('/')[3];
+    }
+    if (selectedCharacterID === "home") {
+      selectedCharacterID = "";
+    }
+    console.log("On load, saw selected character ID of " + selectedCharacterID)
+    if (selectedCharacterID !== "") {
+      this.updateSelectedCharacter(selectedCharacterID);
+    }
   }
 
   handleGoogleLogout() {
     this.setState({googleToken: {}, loggedIn: false, availableCharacters: [], character: null, selectedCharacterID: "", 
     toggleablesSidebarVisible: false, resourcesSidebarVisible: false, itemsSidebarVisible: false});
+    window.history.replaceState(null, null, "/home")
   }
 
   async toggleEffect(effectToToggle) {
@@ -138,10 +153,18 @@ class App extends React.Component {
     this.updateCharacter(this.state.selectedCharacterID, true);
   }
 
+  componentDidMount() {
+  }
+
   updateSelectedCharacter(newID) {
     console.log("Told to update character id " + newID);
-    this.setState({selectedCharacterID: newID})
+    this.setState({selectedCharacterID: newID});
     this.updateCharacter(newID, true);
+  }
+
+  updateUrl() {
+    window.history.replaceState(null, null, "/" + this.state.selectedCharacterID)
+    console.log(window.location.href)
   }
 
   closeSidebar() {
@@ -157,6 +180,7 @@ class App extends React.Component {
     const response = await fetch(url);
     const data = await response.json();
     this.setState({character: data, loading: false, silentLoading: false});
+    this.updateUrl();
   }
 
   render = () => {
@@ -232,7 +256,7 @@ class App extends React.Component {
         </Pane>
         return <div className="App">
           {appPane}
-        </div>
+        </div> 
       }
   }
 }
