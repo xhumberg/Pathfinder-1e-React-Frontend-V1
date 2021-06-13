@@ -1,16 +1,29 @@
 import React from 'react';
-import { Pane } from "evergreen-ui";
+import { Pane, Checkbox } from "evergreen-ui";
 import SmallLabelledValueComponent from './PaneComponents/SmallLabelledValueComponent';
 import LabelledNumberComponent from './PaneComponents/LabelledNumberComponent';
 import LargeLabelledValueComponent from './PaneComponents/LargeLabelledNumberComponent';
 
 export default class SkillsAndBackgroundComponent extends React.Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      showAll: false
+    }
+  } 
+
   render() {
     return <div>
         <Pane display="flex" width="950px" background="blueTint" borderRadius={3} margin="auto" alignItems="flex-start" padding={10} justifyContent="center">
           <Pane display="flex" width="475px" margin="auto" alignItems="center" flexDirection="column">
-            {this.props.character.skills.map((skill) => <SmallLabelledValueComponent label={skill.name} value={skill.value} />)}
+            <Checkbox label="Show all skills" checked={this.state.showAll} onChange={e => this.setState({showAll: !this.state.showAll})} />
+            {this.props.character.skills.map((skill) => 
+                this.state.showAll ? 
+                <SmallLabelledValueComponent label={skill.name} value={skill.value} />
+                :
+                (skill.hasModifiers ? <SmallLabelledValueComponent label={skill.name} value={skill.value} /> : "" )
+            )}
           </Pane>
           <Pane display="flex" width="475px" margin="auto" justifyContent="flex-start" alignItems="center" flexDirection="column">
             <LargeLabelledValueComponent label="Class(es)" value={this.props.character.classes} />
